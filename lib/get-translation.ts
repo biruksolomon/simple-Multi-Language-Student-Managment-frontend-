@@ -1,16 +1,20 @@
 import { translations, type Language } from "./i18n"
 
 export function getTranslation(key: string, language: Language): string {
-  const parts = key.split(".")
-  let current: any = translations[language]
+  // Direct key lookup - translations are flat, not nested
+  const translation = translations[language]?.[key]
 
-  for (const part of parts) {
-    current = current?.[part]
+  if (translation) {
+    return translation
   }
 
-  if (!current) {
-    return translations.en[key] || key
+  // Fallback to English if translation not found
+  const fallback = translations.en?.[key]
+
+  if (fallback) {
+    return fallback
   }
 
-  return current
+  // Return the key itself if no translation found
+  return key
 }

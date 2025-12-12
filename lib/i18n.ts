@@ -793,7 +793,7 @@ export const translations: Record<Language, Record<string, string>> = {
     // Dashboard
     "dashboard.welcomeBack": "ተመለስ በደህና",
     "dashboard.studentWelcomeMsg": "የዚህ በትምህርት, ውጤት, እና መገኛ ስሌት አንድ ቦታ",
-    "dashboard.teacherWelcomeMsg": "ኮርስህን ዋቅር እና ተማሪዎችን ሰፋ",
+    "dashboard.teacherWelcomeMsg": "ኮርስህን ��ቅር እና ተማሪዎችን ሰፋ",
     "dashboard.adminWelcomeMsg": "ሁሉንም የስርዓተ-ፈጣን ተግባራትን ተቆጣጣሪ እና ተጠቃሚዎችን ዘጋጅ",
     "dashboard.accountActive": "አካውንትሸ ንቁ ነው እና ተፈቅዷል። አሁን ሁሉንም የኮርስ ቁሳቁሶች መድረስ ትችላለህ።",
     "dashboard.activeEnrollments": "ንቁ ምዝገባዎች",

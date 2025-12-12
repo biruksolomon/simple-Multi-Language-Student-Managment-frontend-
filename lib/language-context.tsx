@@ -16,34 +16,44 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    const savedLang = localStorage.getItem("preferred-language") as Language | null
-    if (savedLang && ["en", "ar", "am", "om"].includes(savedLang)) {
-      setLanguageState(savedLang)
+    const storedLang = localStorage.getItem("language") as Language
+    if (storedLang && ["en", "ar", "am", "om"].includes(storedLang)) {
+      setLanguageState(storedLang)
+      document.documentElement.lang = storedLang
+      document.documentElement.dir = storedLang === "ar" ? "rtl" : "ltr"
     }
     setMounted(true)
   }, [])
 
+  useEffect(() => {
+    if (mounted) {
+      document.documentElement.lang = language
+      document.documentElement.dir = language === "ar" ? "rtl" : "ltr"
+    }
+  }, [language, mounted])
+
   const setLanguage = (lang: Language) => {
     setLanguageState(lang)
-    localStorage.setItem("preferred-language", lang)
+    localStorage.setItem("language", lang)
     document.documentElement.lang = lang
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr"
   }
 
+  // Prevent hydration mismatch by not rendering until mounted
   if (!mounted) {
     return <>{children}</>
   }
 
   return (
-    <LanguageContext.Provider
-      value={{
-        language,
-        setLanguage,
-        direction: language === "ar" ? "rtl" : "ltr",
-      }}
-    >
-      {children}
-    </LanguageContext.Provider>
+      <LanguageContext.Provider
+          value={{
+            language,
+            setLanguage,
+            direction: language === "ar" ? "rtl" : "ltr",
+          }}
+      >
+        {children}
+      </LanguageContext.Provider>
   )
 }
 
